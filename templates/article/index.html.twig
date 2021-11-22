@@ -16,5 +16,11 @@
         <li>Your controller at <code><a href="{{ '/app/src/Controller/ArticleController.php'|file_link(0) }}">src/Controller/ArticleController.php</a></code></li>
         <li>Your template at <code><a href="{{ '/app/templates/article/index.html.twig'|file_link(0) }}">templates/article/index.html.twig</a></code></li>
     </ul>
+    <h2>Liste des articles :</h2>
+    {% for article in articles %}
+        <h3>{{ article.title }}</h3>
+        <p>{{ article.content|slice(0,299) }}</p> <a href="{{ path('article.show', {id : article.id}) }}">Voir plus</a>
+        <p>{{ article.createdAt|date('m/d/Y') }} {{ article.author }}</p>
+    {% endfor %}
 </div>
 {% endblock %}
