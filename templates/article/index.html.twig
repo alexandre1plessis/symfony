@@ -22,5 +22,6 @@
         <p>{{ article.content|slice(0,299) }}</p> <a href="{{ path('article.show', {id : article.id}) }}">Voir plus</a>
         <p>{{ article.createdAt|date('m/d/Y') }} {{ article.author }}</p>
     {% endfor %}
+    {{ knp_pagination_render(articles) }}
 </div>
 {% endblock %}
