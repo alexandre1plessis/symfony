@@ -35,6 +35,22 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @Route("/article/new", name="article.create")
+     */
+    public function create(): Response
+    {
+
+        $article = new Article();
+
+        $articleForm = $this->createForm(ArticleType::class, $article);
+
+        return $this->render('article/create.html.twig', [
+            'articleForm' => $articleForm->createView() 
+        ]);
+
+    }
+
+    /**
      * @Route("/article/{id}", name="article.show")
      */
     public function show(int $id, ArticleRepository $articleRepository) {

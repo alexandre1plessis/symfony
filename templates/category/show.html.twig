@@ -17,7 +17,15 @@
         {% include "partials/_nav.html.twig" %}
         {% block body %}
             <h2>{{ category.name }}</h2>
+            <h3>{{ nbid }}</h3>
             <p>{{ category.description }}</p>
+            {% for article in articles %}
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.content|slice(0,299) }}</p> <a href="{{ path('article.show', {id : article.id}) }}">Voir plus</a>
+                <p>{{ article.createdAt|date('m/d/Y') }} {{ article.author }}</p>
+            {% endfor %}
+            {{ knp_pagination_render(articles) }}
+            <a href="{{ path('category.index') }}"><h3 style="text-align: center">Retour</h3></a>
         {% endblock %}
     </body>
 </html>

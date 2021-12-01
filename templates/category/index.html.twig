@@ -19,6 +19,7 @@
     <h2>Liste des categories :</h2>
     {% for categorie in categories %}
         <h3>{{ categorie.name }}</h3>
+        <h4>{{ tabid[categorie.id] }}</h4>
         <p>{{ categorie.description|slice(0,299) }}</p> <a href="{{ path('category.show', {id : categorie.id}) }}">Voir plus</a>
     {% endfor %}
 </div>
