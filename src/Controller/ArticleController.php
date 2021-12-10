@@ -38,12 +38,26 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/new", name="article.create")
      */
-    public function create(): Response
+    public function create(Request $request): Response
     {
 
         $article = new Article();
 
         $articleForm = $this->createForm(ArticleType::class, $article);
+
+        $articleForm->handleRequest($request);
+
+        if ($articleForm->isSubmitted() && $articleForm->isValid())
+        {
+            $article->setCreatedAt(new \DateTime);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('article.show', [
+                'id' => $article->getId()
+            ]);
+        }
 
         return $this->render('article/create.html.twig', [
             'articleForm' => $articleForm->createView() 
@@ -66,6 +80,14 @@ class ArticleController extends AbstractController
             ]);
         }
         
+    }
+
+
+    /**
+     * @Route("/article/{id}/edit", name="article.edit")
+     */
+    public function show(int $id, ArticleRepository $articleRepository) {
+
     }
 
     

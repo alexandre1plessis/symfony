@@ -12,10 +12,14 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->add('title', null, [
+                'attr' => [
+                'class' => 'form-control',
+                'placeholder' => 'Titre de l\'article'
+                ]
+            ])
             ->add('author')
             ->add('content')
-            ->add('createdAt')
             ->add('category')
         ;
     }
