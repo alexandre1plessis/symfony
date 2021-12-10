@@ -19,6 +19,7 @@
             <h2>{{ article.title }}</h2>
             <p>{{ article.content }}</p>
             <p>{{ article.createdAt|date('m/d/Y') }} {{ article.author }}</p>
+            <a href="{{ path('article.edit', {id : article.id}) }}"><h3 style="text-align: center">Update</h3></a>
         {% endblock %}
     </body>
 </html>

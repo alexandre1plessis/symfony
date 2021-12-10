@@ -86,8 +86,42 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/{id}/edit", name="article.edit")
      */
-    public function show(int $id, ArticleRepository $articleRepository) {
+    public function edit(ArticleRepository $articleRepository, Request $request, int $id){
 
+        $article = $articleRepository->find($id);
+
+        $articleForm = $this->createForm(ArticleType::class, $article);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $articleForm->handleRequest($request);
+        if ($articleForm->isSubmitted() && $articleForm->isValid())
+        {
+            $em->persist($article);
+            $article->setCreatedAt(new \DateTime);
+            $em->flush();
+
+            return $this->redirectToRoute('article.show', [
+                'id' => $article->getId()
+            ]);
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+        
+        return $this->render('article/update.html.twig', [
+            'articleForm' => $articleForm->createView() 
+        ]);
+    }
+
+    /**
+     * @Route("/article/{id}/delete", name="article.delete")
+     */
+    public function delete(int $id, ArticleRepository $articleRepository) {
+
+        $csrfToken = $request->request->get('token');
+
+        if ($this->isCsrfTokenValid('delete-item', $csrfToken))
+        {
+
+        }
     }
 
     
