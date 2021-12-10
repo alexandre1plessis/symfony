@@ -21,5 +21,7 @@
             <p>{{ article.createdAt|date('m/d/Y') }} {{ article.author }}</p>
             <a href="{{ path('article.edit', {id : article.id}) }}"><h3 style="text-align: center">Update</h3></a>
         {% endblock %}
+
+        <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}">
     </body>
 </html>
